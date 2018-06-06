@@ -19,18 +19,18 @@ File:
 - List(get):
     /file/
 
-- Create(post):
-    /file/upload/
-    fields = filename, file
-
-- Get Book(get):
-    /file/get/
-    fields = filename
-
-- rename(post):
-    /file/rename/
-    fields = new_name, previous_name
-
-- Delete(post):
-    /file/delete/
-    fields = filename
+- Create(post):  
+    /file/upload/  
+    fields = filename, file 
+  
+- Get Book(get):  
+    /file/get/  
+    fields = filename 
+  
+- Rename(post):  
+    /file/rename/  
+    fields = new_name, previous_name 
+  
+- Delete(post):  
+    /file/delete/ 
+    fields = filename 
