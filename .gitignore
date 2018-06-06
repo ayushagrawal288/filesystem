@@ -1,0 +1,8 @@
+*.swp
+*.swo
+*.DS_Store
+*.pyc
+*.sqlite3
+media/*
+*.idea/*
+venv/*
