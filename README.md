@@ -32,5 +32,5 @@ File:
     fields = new_name, previous_name 
   
 - Delete(post):  
-    /file/delete/ 
+    /file/delete/  
     fields = filename 
