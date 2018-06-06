@@ -3,7 +3,7 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.http import JsonResponse
 from core.utils.main import FileStorage
 
-storage = FileStorage('default')
+storage = FileStorage('s3')
 
 
 def home(request):
@@ -30,7 +30,6 @@ def list_files(request):
         data = storage.list()
     except ValueError as e:
         return JsonResponse({"error": e.__str__()})
-    print(data)
     return JsonResponse({"payload": data})
 
 

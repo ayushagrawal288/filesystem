@@ -12,6 +12,13 @@ pip install -r requirements.txt
 python manage.py runserver
 ``` 
 
+Important: Set the aws credentials as environment variables:
+    subl ~/.bash_profile
+
+add the following variables with their respective values
+    export AWS_ACCESS_KEY_ID=''
+    export AWS_SECRET_ACCESS_KEY=''
+
 
 Endpoints
 ---------

@@ -1,9 +1,10 @@
 import boto3
 from botocore.exceptions import ClientError
+import os
 
 
-aws_access_key_id = "AKIAIPCLMKEZHM5DCUDQ"
-aws_secret_access_key = "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"
+aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
+aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 region = "us-east-2"
 
