@@ -1,0 +1,85 @@
+@app.task(name='liShare', queue=ot_q)
+def liShare(**kwargs):
+    url = kwargs.get('share_url')
+
+    count = 0
+
+    while count < 10:
+        resp = requests.get(
+            url=f'http://www.linkedin.com/countserv/count/share?format=json&url={url}'
+        ).json()
+
+        scount = resp['count']
+        if scount != 0:
+            break
+        count=count+1
+
+    if scount:
+        reward = 1 
+        reward.delay() #TODO Have to think
+
+@app.task(name='piShare', queue=ot_q)
+def piShare(**kwargs):
+    url = kwargs.get('share_url')
+
+    resp = json.loads(requests.get(
+        url=f'http://api.pinterest.com/v1/urls/count.json?url={url}'
+    ).text[13:-1])
+
+    try:
+        scount = resp.get('count')
+    except:
+        scount = 0
+
+    if scount:
+        reward = 1 
+        reward.delay() #TODO Have to think
+
+@app.task(name='stShare', queue=ot_q)
+def stShare(**kwargs):
+    url = kwargs.get('share_url')
+
+    try:
+        resp = requests.get(
+            url=f'http://www.stumbleupon.com/services/1.01/badge.getinfo?url={url}'
+        ).json()['result']
+
+        scount = resp.get('views',0)
+    except:
+        scount=0
+
+    if scount:
+        reward = 1 
+        reward.delay() #TODO Have to think
+
+@app.task(name='vkShare', queue=ot_q)
+def vkShare(**kwargs):
+    url = kwargs.get('share_url')
+
+    resp = requests.get(
+        url=f'https://vk.com/share.php?act=count&index=1&url={url}'
+    ).text[-3:-2]
+
+    try:
+        scount = int(resp)
+    except:
+        scount = 0
+
+    if scount:
+        reward = 1 
+        reward.delay() #TODO Have to think
+		
+@app.task(name='fbShare', queue=fb_q)
+def fbShare(**kwargs):
+    url = kwargs.get('share_url')
+
+    resp = requests.get(
+        url=f'https://graph.facebook.com/?id={url}'
+    ).json()
+
+    scount = resp['share']['share_count']
+    ccount = resp['share']['comment_count']
+
+    if scount:
+        reward = 1 #+ 0.1*ccount
+        reward.delay() #TODO Have to think

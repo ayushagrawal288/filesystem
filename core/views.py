@@ -3,7 +3,11 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.http import JsonResponse
 from core.utils.main import FileStorage
 
-storage = FileStorage('s3')
+storage = FileStorage('default')
+
+
+def home(request):
+    return render(request, 'home.html')
 
 
 def upload_file(request):

@@ -2,8 +2,8 @@ import boto3
 from botocore.exceptions import ClientError
 
 
-aws_access_key_id = "AKIAIOXUFJTGCI6YIP2A"
-aws_secret_access_key = "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"
+aws_access_key_id = "AKIAIPCLMKEZHM5DCUDQ"
+aws_secret_access_key = "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"
 
 region = "us-east-2"
 
@@ -11,7 +11,7 @@ bucket_name = 'leucinetechapp'
 
 s3 = boto3.resource('s3', region, aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key)
 
-temp_file = 'core/tmp'
+temp_file = 'core/temp'
 
 
 class S3Filesystem(object):
@@ -38,8 +38,12 @@ class S3Filesystem(object):
 
     @staticmethod
     def rename(new_name, previous_name):
-        s3.Object(bucket_name, new_name).copy_from(CopySource='/' + bucket_name + '/' + previous_name)
-        s3.Object(bucket_name, previous_name).delete()
+        try:
+            s3.Object(bucket_name, new_name).copy_from(CopySource='/' + bucket_name + '/' + previous_name)
+            s3.Object(bucket_name, previous_name).delete()
+        except ClientError as e:
+            if e.response['Error']['Code'] == 'NoSuchKey':
+                raise ValueError('no file found by that name')
 
     @staticmethod
     def list():
