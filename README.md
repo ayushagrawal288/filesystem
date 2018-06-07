@@ -20,6 +20,9 @@ add the following variables with their respective values
     export AWS_SECRET_ACCESS_KEY=''
 
 
+## Main library for file storage system is inside core/utils/
+
+
 Endpoints
 ---------
 File:
