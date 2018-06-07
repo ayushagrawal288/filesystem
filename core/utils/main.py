@@ -3,11 +3,11 @@ from core.utils.defaultStorage import DefaultStorage
 
 
 class FileStorage(object):
-    def __init__(self, type='default'):
+    def __init__(self, type='default', **kwargs):
         if type == 's3':
-            self.storage = S3Filesystem()
+            self.storage = S3Filesystem(**kwargs)
         else:
-            self.storage = DefaultStorage()
+            self.storage = DefaultStorage(**kwargs)
 
     def create(self, filename, file):
         return self.storage.create(filename, file)

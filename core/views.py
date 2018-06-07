@@ -1,9 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.utils.datastructures import MultiValueDictKeyError
 from django.http import JsonResponse
 from core.utils.main import FileStorage
+from core.config import *
 
-storage = FileStorage('s3')
+
+# storage = FileStorage('s3', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key,
+#                       region=region, bucket_name=bucket_name, temp_file=temp_file)
+
+storage = FileStorage('default', directory=default_storage_directory)
 
 
 def home(request):
@@ -35,11 +40,16 @@ def list_files(request):
 
 def get_file(request):
     if request.method == 'POST':
+        # import pdb
+        # pdb.set_trace()
         filename = request.POST.get('filename')
+        return_type = request.POST.get('type', 'file')
         try:
             data = storage.fetch(filename)
         except ValueError as e:
             return JsonResponse({"error": e.__str__()})
+        if return_type == 'file':
+            return redirect('/' + data.get('filename'))
         return JsonResponse({"payload": data})
     return render(request, 'core/file.html')
 
@@ -64,4 +74,4 @@ def delete_file(request):
         except ValueError as e:
             return JsonResponse({"error": e.__str__()})
         return JsonResponse({"payload": "success"})
-    return render(request, 'core/file.html')
+    return render(request, 'core/delete.html')

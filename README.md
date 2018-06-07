@@ -32,7 +32,7 @@ File:
   
 - Get Book(get):  
     /file/get/  
-    fields = filename 
+    fields = filename, type(file, data)
   
 - Rename(post):  
     /file/rename/  

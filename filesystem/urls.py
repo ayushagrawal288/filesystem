@@ -16,9 +16,12 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from core.views import home
+from django.conf import settings
+from django.views.static import serve
 
 urlpatterns = [
     url(r'^$', home),
     url(r'^admin/', admin.site.urls),
-    url(r'^file/', include('core.urls'))
+    url(r'^file/', include('core.urls')),
+    url(r'^%s(?P<path>.*)$' % settings.MEDIA_URL[1:], serve, {'document_root': settings.MEDIA_ROOT}),
 ]
