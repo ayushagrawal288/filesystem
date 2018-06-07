@@ -5,10 +5,10 @@ from core.utils.main import FileStorage
 from core.config import *
 
 
-# storage = FileStorage('s3', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key,
-#                       region=region, bucket_name=bucket_name, temp_file=temp_file)
+storage = FileStorage('s3', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key,
+                      region=region, bucket_name=bucket_name, temp_file=temp_file)
 
-storage = FileStorage('default', directory=default_storage_directory)
+# storage = FileStorage('default', directory=default_storage_directory)
 
 
 def home(request):
@@ -40,8 +40,6 @@ def list_files(request):
 
 def get_file(request):
     if request.method == 'POST':
-        # import pdb
-        # pdb.set_trace()
         filename = request.POST.get('filename')
         return_type = request.POST.get('type', 'file')
         try:
