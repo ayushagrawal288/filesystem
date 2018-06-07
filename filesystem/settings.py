@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ['localhost', 'filesystemodule.herokuapp.com', '127.0.0.1']
 
 INSTALLED_APPS = [
     'core',
-    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
